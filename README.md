@@ -207,7 +207,7 @@ MIT License - feel free to use this template for your portfolio.
 
 ## 💬 Contact
 
-- **Email**: yahya.laadam@gmail.com
+- **Email**: yahyalaadam3@gmail.com
 - **GitHub**: https://github.com/yahya-2005
 - **LinkedIn**: https://www.linkedin.com/in/yahya-laadam/
 - **Location**: Casablanca, Morocco
