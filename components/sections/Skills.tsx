@@ -3,13 +3,20 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SKILLS } from '@/data/portfolio';
+import { Award, Zap, Target } from 'lucide-react';
 
 const skillCategories = [
-  { id: 'frontend', label: 'Frontend', icon: '⚛️' },
+  { id: 'frontend', label: 'Frontend Mastery', icon: '⚛️' },
   { id: 'backend', label: 'Backend', icon: '🔧' },
   { id: 'erp', label: 'ERP & Business', icon: '⚙️' },
   { id: 'design', label: 'Design', icon: '🎨' },
   { id: 'tools', label: 'Tools & DevOps', icon: '🛠️' },
+];
+
+const expertisePillars = [
+  { title: 'Frontend Excellence', desc: '15+ years mastering UI/UX', icon: '🎯' },
+  { title: 'Performance', desc: 'Web optimization expert', icon: '⚡' },
+  { title: 'Architecture', desc: 'Scalable system design', icon: '🏗️' },
 ];
 
 export default function Skills() {
@@ -42,11 +49,11 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-20 md:py-32 bg-gradient-to-b from-black to-black/50 overflow-hidden"
+      className="relative py-20 md:py-32 bg-gradient-to-b from-black via-emerald-950/10 to-black/50 overflow-hidden"
     >
       {/* Background Effects */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-cyan-500/10 rounded-full filter blur-3xl opacity-20" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full filter blur-3xl opacity-20" />
+      <div className="absolute top-1/3 left-0 w-96 h-96 bg-cyan-500/5 rounded-full filter blur-3xl opacity-20" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-emerald-500/5 rounded-full filter blur-3xl opacity-20" />
 
       <div className="relative container-custom">
         <motion.div
@@ -55,15 +62,40 @@ export default function Skills() {
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          {/* Section Header */}
+          {/* Premium Header */}
           <motion.div variants={itemVariants} className="mb-16">
-            <h2 className="section-title">Technical Skills</h2>
-            <p className="section-subtitle">
-              Expert proficiency in modern technologies and tools
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30">
+              <Award size={16} className="text-emerald-400" />
+              <span className="text-sm font-semibold text-emerald-400">Senior Developer Expertise</span>
+            </div>
+            <h2 className="section-title">Technical Mastery</h2>
+            <p className="section-subtitle max-w-2xl">
+              15+ years of professional experience crafting performant, scalable web applications with cutting-edge technologies
             </p>
           </motion.div>
 
-          {/* Category Tabs */}
+          {/* Expertise Pillars */}
+          <motion.div
+            variants={itemVariants}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
+          >
+            {expertisePillars.map((pillar, idx) => (
+              <motion.div
+                key={idx}
+                className="card-dark group relative overflow-hidden"
+                whileHover={{ y: -5 }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10">
+                  <div className="text-4xl mb-3">{pillar.icon}</div>
+                  <h3 className="text-lg font-bold text-white mb-1">{pillar.title}</h3>
+                  <p className="text-sm text-gray-400">{pillar.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Premium Category Tabs */}
           <motion.div
             variants={itemVariants}
             className="flex flex-wrap gap-3 mb-12 justify-center"
@@ -72,21 +104,27 @@ export default function Skills() {
               <motion.button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id as keyof typeof SKILLS)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 ${
+                className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 relative overflow-hidden group ${
                   activeCategory === category.id
-                    ? 'glass-hover bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-emerald-500/50 shadow-glow'
-                    : 'glass hover:bg-white/20'
+                    ? 'bg-gradient-to-r from-emerald-500/30 to-cyan-500/30 border border-emerald-400/60 shadow-glow text-white'
+                    : 'glass hover:bg-white/20 text-gray-300'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="text-lg">{category.icon}</span>
                 {category.label}
+                {activeCategory === category.id && (
+                  <motion.div
+                    layoutId="skillUnderline"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-400"
+                  />
+                )}
               </motion.button>
             ))}
           </motion.div>
 
-          {/* Skills Grid */}
+          {/* Premium Skills Grid */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory}
@@ -103,7 +141,7 @@ export default function Skills() {
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
               {skills.map((skill, index) => (
                 <motion.div
@@ -111,48 +149,67 @@ export default function Skills() {
                   variants={skillItemVariants}
                   className="group"
                 >
-                  <div className="card relative overflow-hidden h-full">
+                  <div className="card-dark relative overflow-hidden h-full border border-white/5 hover:border-emerald-500/30 transition-all duration-300">
                     {/* Gradient Background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                     <div className="relative z-10">
-                      {/* Header */}
-                      <div className="flex items-center justify-between mb-4">
+                      {/* Header with enhanced styling */}
+                      <div className="flex items-start justify-between mb-6">
                         <div className="flex items-center gap-3">
-                          <span className="text-3xl">{skill.icon}</span>
-                          <h3 className="text-lg font-bold text-white">
-                            {skill.name}
-                          </h3>
+                          <div className="text-4xl p-2 rounded-lg bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 group-hover:from-emerald-500/20 group-hover:to-cyan-500/20 transition-all">
+                            {skill.icon}
+                          </div>
+                          <div>
+                            <h3 className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
+                              {skill.name}
+                            </h3>
+                            <p className="text-xs text-gray-500 mt-1">
+                              {skill.level >= 90
+                                ? 'Expert'
+                                : skill.level >= 80
+                                ? 'Advanced'
+                                : skill.level >= 70
+                                ? 'Proficient'
+                                : 'Intermediate'}
+                            </p>
+                          </div>
                         </div>
-                        <span className="text-sm font-semibold text-emerald-400">
-                          {skill.level}%
-                        </span>
                       </div>
 
-                      {/* Progress Bar */}
-                      <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+                      {/* Level Display */}
+                      <div className="mb-4 flex items-center justify-between">
+                        <span className="text-xs text-gray-400">Proficiency Level</span>
+                        <span className="text-sm font-bold gradient-text">{skill.level}%</span>
+                      </div>
+
+                      {/* Enhanced Progress Bar */}
+                      <div className="w-full bg-white/5 rounded-full h-3 overflow-hidden border border-white/10">
                         <motion.div
-                          className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
+                          className="h-full bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 rounded-full"
+                          initial={{ width: 0, opacity: 0 }}
+                          whileInView={{ width: `${skill.level}%`, opacity: 1 }}
                           viewport={{ once: true }}
                           transition={{
-                            duration: 0.8,
+                            duration: 1.2,
                             delay: index * 0.05,
+                            ease: 'easeOut',
                           }}
                         />
                       </div>
 
-                      {/* Proficiency Text */}
-                      <p className="mt-3 text-sm text-gray-400">
-                        {skill.level >= 90
-                          ? 'Expert'
-                          : skill.level >= 80
-                          ? 'Advanced'
-                          : skill.level >= 70
-                          ? 'Proficient'
-                          : 'Intermediate'}
-                      </p>
+                      {/* Mastery Badge */}
+                      {skill.level >= 90 && (
+                        <motion.div
+                          className="mt-4 flex items-center gap-1 text-xs text-emerald-400"
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.3 }}
+                        >
+                          <Zap size={12} />
+                          <span>Expert Mastery</span>
+                        </motion.div>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -160,27 +217,54 @@ export default function Skills() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Summary Stats */}
+          {/* Professional Stats */}
           <motion.div
             variants={itemVariants}
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+            className="mt-20 pt-12 border-t border-white/10"
           >
-            <div className="card-dark text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">45+</div>
-              <p className="text-gray-400 text-sm">Technologies</p>
+            <div className="text-center mb-8">
+              <h3 className="text-xl font-bold text-white mb-2">Professional Summary</h3>
+              <p className="text-gray-400 text-sm">Expertise spanning across frontend, backend, and business solutions</p>
             </div>
-            <div className="card-dark text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">Full-Stack</div>
-              <p className="text-gray-400 text-sm">Capability</p>
-            </div>
-            <div className="card-dark text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">Continuous</div>
-              <p className="text-gray-400 text-sm">Learning</p>
-            </div>
-            <div className="card-dark text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">Best</div>
-              <p className="text-gray-400 text-sm">Practices</p>
-            </div>
+            <motion.div
+              className="grid grid-cols-2 md:grid-cols-4 gap-6"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1 },
+                },
+              }}
+            >
+              <motion.div
+                variants={itemVariants}
+                className="card-dark text-center group hover:border-emerald-500/30"
+              >
+                <div className="text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">15+</div>
+                <p className="text-gray-400 text-sm font-medium">Years Experience</p>
+              </motion.div>
+              <motion.div
+                variants={itemVariants}
+                className="card-dark text-center group hover:border-emerald-500/30"
+              >
+                <div className="text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">50+</div>
+                <p className="text-gray-400 text-sm font-medium">Technologies</p>
+              </motion.div>
+              <motion.div
+                variants={itemVariants}
+                className="card-dark text-center group hover:border-emerald-500/30"
+              >
+                <div className="text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">8</div>
+                <p className="text-gray-400 text-sm font-medium">Skill Categories</p>
+              </motion.div>
+              <motion.div
+                variants={itemVariants}
+                className="card-dark text-center group hover:border-emerald-500/30"
+              >
+                <div className="text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">92%</div>
+                <p className="text-gray-400 text-sm font-medium">Avg. Mastery Level</p>
+              </motion.div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

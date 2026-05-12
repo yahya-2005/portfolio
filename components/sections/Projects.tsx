@@ -112,13 +112,21 @@ export default function Projects() {
                   <div className="card-dark h-full flex flex-col overflow-hidden">
                     {/* Image Placeholder */}
                     <div className="relative w-full h-48 bg-gradient-to-br from-emerald-900/30 to-cyan-900/30 overflow-hidden mb-6">
-                      <div className="w-full h-full flex items-center justify-center text-4xl opacity-30">
-                        {project.category === 'ERP Development' && '⚙️'}
-                        {project.category === 'Web Development' && '🌐'}
-                        {project.category === 'Web Application' && '💻'}
-                        {project.category === 'Game Development' && '🎮'}
-                        {project.category === 'Full-Stack Development' && '🚀'}
-                      </div>
+                      {project.image && project.image.startsWith('/images/') ? (
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-4xl opacity-30">
+                          {project.category === 'ERP Development' && '⚙️'}
+                          {project.category === 'Web Development' && '🌐'}
+                          {project.category === 'Web Application' && '💻'}
+                          {project.category === 'Game Development' && '🎮'}
+                          {project.category === 'Full-Stack Development' && '🚀'}
+                        </div>
+                      )}
                       {/* Status Badge */}
                       <div className="absolute top-4 right-4">
                         <motion.span

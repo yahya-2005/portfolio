@@ -110,7 +110,7 @@ export const PROJECTS = [
     category: 'ERP Development',
     description: 'Full enterprise resource planning system built with Odoo 17 for managing Moroccan rug manufacturing operations.',
     longDescription: 'A comprehensive ERP system designed specifically for Moroccan rug manufacturing companies. This system handles complete business processes including product management, production workflows, inventory control, stock movements, and user permission management. Built on Odoo 17 with custom module development.',
-    image: '/projects/erp-system.jpg',
+    image: '/images/erp.png',
     technologies: ['Odoo 17', 'Python', 'PostgreSQL', 'XML', 'JavaScript'],
     features: [
       'Product Management with variants and attributes',
@@ -120,8 +120,8 @@ export const PROJECTS = [
       'Role-based User Permissions',
       'Custom Reports and Analytics',
     ],
-    link: '#',
-    github: 'https://github.com/yahya-2005',
+    link: 'https://github.com/yahya-2005/moroccan-rugs-erp',
+    github: 'https://github.com/yahya-2005/moroccan-rugs-erp',
     status: 'In Progress',
   },
   {
@@ -130,7 +130,7 @@ export const PROJECTS = [
     category: 'Web Development',
     description: 'Personal portfolio website with advanced animations, interactive elements, and modern design.',
     longDescription: 'A showcase portfolio featuring cutting-edge animations using Framer Motion and GSAP. Built with Next.js and TypeScript, it demonstrates advanced frontend development skills with smooth scrolling, scroll-triggered animations, and high-performance optimization.',
-    image: '/projects/portfolio.jpg',
+    image: '/images/PL.png',
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
     features: [
       'Smooth scroll animations with Lenis',
@@ -140,7 +140,7 @@ export const PROJECTS = [
       'SEO optimized',
       'Dark mode with glassmorphism',
     ],
-    link: 'https://yahya-portfolio.vercel.app',
+    link: 'https://github.com/yahya-2005/portfolio',
     github: 'https://github.com/yahya-2005/portfolio',
     status: 'Completed',
   },
@@ -170,7 +170,7 @@ export const PROJECTS = [
     category: 'Game Development',
     description: 'Complete chess game implementation with full movement rules and game logic.',
     longDescription: 'A fully functional chess game built with Python featuring complete chess rules, piece movement validation, check/checkmate detection, and a user-friendly interface.',
-    image: '/projects/chess-game.jpg',
+    image: '/images/chess.png',
     technologies: ['Python', 'Pygame', 'OOP', 'Game Logic'],
     features: [
       'Complete chess rules implementation',
@@ -190,7 +190,7 @@ export const PROJECTS = [
     category: 'Web Application',
     description: 'Weather app using weather API with custom UI and data visualization.',
     longDescription: 'An interactive weather application that fetches real-time weather data using a weather API and displays it with a beautiful custom interface. Features include location search, forecast viewing, and weather metrics visualization.',
-    image: '/projects/weather-app.jpg',
+    image: '/images/weather.png',
     technologies: ['Python', 'API Integration', 'Data Visualization', 'UI Design'],
     features: [
       'Real-time weather data',
