@@ -150,7 +150,7 @@ export const PROJECTS = [
     category: 'Web Application',
     description: 'Full-stack CRUD application for managing contacts with PHP, PDO, and MySQL.',
     longDescription: 'A complete contact management system built with PHP backend and modern frontend. Features include add, edit, delete, and search functionality with secure database operations using PDO prepared statements.',
-    image: '/projects/contact-system.jpg',
+    image: '/images/Contact.png',
     technologies: ['PHP', 'MySQL', 'PDO', 'HTML5', 'CSS3', 'JavaScript'],
     features: [
       'Complete CRUD operations',
@@ -160,8 +160,8 @@ export const PROJECTS = [
       'Input validation',
       'Database optimization',
     ],
-    link: '#',
-    github: 'https://github.com/yahya-2005/contact-management',
+    link: 'https://github.com/othmane-code11/nextGen',
+    github: 'https://github.com/othmane-code11/nextGen',
     status: 'Completed',
   },
   {
@@ -210,7 +210,7 @@ export const PROJECTS = [
     category: 'Full-Stack Development',
     description: 'Modern e-commerce platform with product catalog, shopping cart, and payment integration.',
     longDescription: 'A full-featured e-commerce platform built with Next.js and TypeScript. Includes product management, shopping cart functionality, user authentication, and payment processing integration.',
-    image: '/projects/ecommerce.jpg',
+    image: '/images/MatchaFlow.png',
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Stripe', 'PostgreSQL'],
     features: [
       'Product catalog with filtering',
@@ -220,8 +220,8 @@ export const PROJECTS = [
       'Order tracking',
       'Admin dashboard',
     ],
-    link: '#',
-    github: 'https://github.com/yahya-2005/ecommerce',
+    link: 'https://github.com/yahya-2005/matcha-scrollytelling-',
+    github: 'https://github.com/yahya-2005/matcha-scrollytelling-',
     status: 'In Progress',
   },
 ];

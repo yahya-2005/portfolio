@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, ChevronRight } from 'lucide-react';
+import { ExternalLink, ChevronRight, ChevronDown } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { PROJECTS } from '@/data/portfolio';
 
@@ -10,6 +10,16 @@ const categories = ['All', ...new Set(PROJECTS.map((p) => p.category))];
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [expandedProjects, setExpandedProjects] = useState<Set<number>>(new Set());
+
+  const toggleExpand = (id: number) => {
+    setExpandedProjects((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   const filteredProjects =
     activeCategory === 'All'
@@ -157,6 +167,50 @@ export default function Projects() {
                       <p className="text-gray-400 text-sm mb-4 flex-1 line-clamp-2">
                         {project.description}
                       </p>
+
+                      {/* Features Dropdown */}
+                      {project.features && project.features.length > 0 && (
+                        <div className="mb-4">
+                          <motion.button
+                            onClick={() => toggleExpand(project.id)}
+                            className="flex items-center gap-2 text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+                            whileHover={{ x: 4 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <motion.span
+                              animate={{ rotate: expandedProjects.has(project.id) ? 180 : 0 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              <ChevronDown size={16} />
+                            </motion.span>
+                            {expandedProjects.has(project.id) ? 'Hide Details' : 'Show Details'}
+                          </motion.button>
+                          <AnimatePresence>
+                            {expandedProjects.has(project.id) && (
+                              <motion.ul
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden mt-2 space-y-1"
+                              >
+                                {project.features.map((feature, i) => (
+                                  <motion.li
+                                    key={i}
+                                    initial={{ x: -10, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ delay: i * 0.05 }}
+                                    className="text-gray-400 text-xs flex items-center gap-2"
+                                  >
+                                    <span className="w-1 h-1 rounded-full bg-emerald-500 flex-shrink-0" />
+                                    {feature}
+                                  </motion.li>
+                                ))}
+                              </motion.ul>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      )}
 
                       {/* Technologies */}
                       <div className="flex flex-wrap gap-2 mb-6">
