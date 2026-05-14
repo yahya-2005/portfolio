@@ -30,7 +30,7 @@ export default function LoadingScreen() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
+      transition: { duration: 0.8, ease: 'easeOut' as const },
     },
   };
 
@@ -38,7 +38,7 @@ export default function LoadingScreen() {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 bg-gradient-to-br from-black via-slate-950 to-black z-[9999] overflow-hidden"
+          className="fixed inset-0 bg-linear-to-br from-black via-slate-950 to-black z-9999 overflow-hidden"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
@@ -72,7 +72,7 @@ export default function LoadingScreen() {
               {/* Main Title */}
               <motion.div variants={itemVariants} className="text-center">
                 <h1 className="text-5xl md:text-6xl font-bold mb-2">
-                  <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                  <span className="bg-linear-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
                     Yahya Laadam
                   </span>
                 </h1>
@@ -125,9 +125,9 @@ export default function LoadingScreen() {
                 </div>
 
                 {/* Gradient Progress Bar */}
-                <div className="h-1 bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 rounded-full overflow-hidden border border-white/5">
+                <div className="h-1 bg-linear-to-r from-slate-800 via-slate-700 to-slate-800 rounded-full overflow-hidden border border-white/5">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 rounded-full shadow-glow"
+                    className="h-full bg-linear-to-r from-emerald-500 via-cyan-500 to-emerald-500 rounded-full shadow-glow"
                     initial={{ width: '0%' }}
                     animate={{ width: '100%' }}
                     transition={{ duration: 2.5, ease: 'easeInOut' }}
