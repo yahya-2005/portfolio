@@ -200,8 +200,8 @@ export const PROJECTS = [
       'Custom UI design',
       'Responsive layout',
     ],
-    link: '#',
-    github: 'https://github.com/yahya-2005/weather-app',
+    link: 'https://github.com/yahya-2005/weather_app',
+    github: 'https://github.com/yahya-2005/weather_app',
     status: 'Completed',
   },
   {
