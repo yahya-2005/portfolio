@@ -1,9 +1,18 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { PERSONAL_INFO, LANGUAGES } from '@/data/portfolio';
+import { AboutSkeleton } from '@/components/ui/SectionSkeleton';
 
 export default function About() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 600);
+    return () => clearTimeout(timer);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -19,6 +28,8 @@ export default function About() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  if (!loaded) return <AboutSkeleton />;
 
   return (
     <section
@@ -40,7 +51,7 @@ export default function About() {
           <motion.div variants={itemVariants} className="mb-12">
             <h2 className="section-title">About Me</h2>
             <p className="section-subtitle">
-              Discover my journey and passion for web development
+              Developer focused on building modern, functional web applications
             </p>
           </motion.div>
 
@@ -111,18 +122,18 @@ export default function About() {
                   className="card"
                 >
                   <div className="text-3xl font-bold gradient-text mb-2">
-                    100%
+                    6+
                   </div>
-                  <p className="text-gray-400 text-sm">Client Satisfaction</p>
+                  <p className="text-gray-400 text-sm">Projects Built</p>
                 </motion.div>
                 <motion.div
                   variants={itemVariants}
                   className="card"
                 >
                   <div className="text-3xl font-bold gradient-text mb-2">
-                    24/7
+                    10+
                   </div>
-                  <p className="text-gray-400 text-sm">Support Available</p>
+                  <p className="text-gray-400 text-sm">Technologies Used</p>
                 </motion.div>
               </div>
 

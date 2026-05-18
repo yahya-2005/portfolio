@@ -1,16 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, ChevronRight, ChevronDown } from 'lucide-react';
+import { ExternalLink, ChevronRight, ChevronDown, Code2, Globe, Layout, Gamepad2, Layers, Settings } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { PROJECTS } from '@/data/portfolio';
+import { ProjectsSkeleton } from '@/components/ui/SectionSkeleton';
 
 const categories = ['All', ...new Set(PROJECTS.map((p) => p.category))];
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [expandedProjects, setExpandedProjects] = useState<Set<number>>(new Set());
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 700);
+    return () => clearTimeout(timer);
+  }, []);
 
   const toggleExpand = (id: number) => {
     setExpandedProjects((prev) => {
@@ -47,6 +54,8 @@ export default function Projects() {
     visible: { opacity: 1, scale: 1 },
     exit: { opacity: 0, scale: 0.9 },
   };
+
+  if (!loaded) return <ProjectsSkeleton />;
 
   return (
     <section
@@ -129,12 +138,12 @@ export default function Projects() {
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-4xl opacity-30">
-                          {project.category === 'ERP Development' && '⚙️'}
-                          {project.category === 'Web Development' && '🌐'}
-                          {project.category === 'Web Application' && '💻'}
-                          {project.category === 'Game Development' && '🎮'}
-                          {project.category === 'Full-Stack Development' && '🚀'}
+                        <div className="w-full h-full flex items-center justify-center">
+                          {project.category === 'ERP Development' && <Settings size={48} className="text-emerald-500/30" />}
+                          {project.category === 'Web Development' && <Globe size={48} className="text-emerald-500/30" />}
+                          {project.category === 'Web Application' && <Layout size={48} className="text-emerald-500/30" />}
+                          {project.category === 'Game Development' && <Gamepad2 size={48} className="text-emerald-500/30" />}
+                          {project.category === 'Full-Stack Development' && <Layers size={48} className="text-emerald-500/30" />}
                         </div>
                       )}
                       {/* Status Badge */}

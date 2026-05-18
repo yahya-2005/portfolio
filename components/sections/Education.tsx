@@ -1,10 +1,19 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { EDUCATION } from '@/data/portfolio';
 import { GraduationCap, Award, CheckCircle2 } from 'lucide-react';
+import { EducationSkeleton } from '@/components/ui/SectionSkeleton';
 
 export default function Education() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -20,6 +29,8 @@ export default function Education() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  if (!loaded) return <EducationSkeleton />;
 
   return (
     <section
@@ -41,7 +52,7 @@ export default function Education() {
           <motion.div variants={itemVariants} className="mb-16">
             <h2 className="section-title">Education & Certifications</h2>
             <p className="section-subtitle">
-              Continuous learning and professional development
+              Formal education and self-directed learning
             </p>
           </motion.div>
 
@@ -196,15 +207,15 @@ export default function Education() {
             className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
           >
             <div className="card-dark text-center">
-              <div className="text-4xl font-bold gradient-text mb-2">100+</div>
+              <div className="text-4xl font-bold gradient-text mb-2">50+</div>
               <p className="text-gray-400">Learning Hours</p>
             </div>
             <div className="card-dark text-center">
-              <div className="text-4xl font-bold gradient-text mb-2">10+</div>
+              <div className="text-4xl font-bold gradient-text mb-2">5+</div>
               <p className="text-gray-400">Online Courses</p>
             </div>
             <div className="card-dark text-center">
-              <div className="text-4xl font-bold gradient-text mb-2">5+</div>
+              <div className="text-4xl font-bold gradient-text mb-2">3</div>
               <p className="text-gray-400">Certifications</p>
             </div>
           </motion.div>

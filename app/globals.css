@@ -176,7 +176,7 @@ body {
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .card-dark {
@@ -189,7 +189,7 @@ body {
 }
 
 .card-dark:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .input-field {
@@ -310,4 +310,11 @@ body {
 
 .bg-gradient-radial-cyan {
   background: radial-gradient(circle at center, rgba(11, 157, 255, 0.1), transparent);
+}
+
+/* Shimmer animation for skeleton loaders */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }

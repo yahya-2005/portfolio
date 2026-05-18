@@ -1,26 +1,33 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SKILLS } from '@/data/portfolio';
 import { Award, Zap, Target } from 'lucide-react';
+import { SkillsSkeleton } from '@/components/ui/SectionSkeleton';
 
 const skillCategories = [
-  { id: 'frontend', label: 'Frontend Mastery', icon: '⚛️' },
-  { id: 'backend', label: 'Backend', icon: '🔧' },
-  { id: 'erp', label: 'ERP & Business', icon: '⚙️' },
-  { id: 'design', label: 'Design', icon: '🎨' },
-  { id: 'tools', label: 'Tools & DevOps', icon: '🛠️' },
+  { id: 'frontend', label: 'Frontend', icon: 'React' },
+  { id: 'backend', label: 'Backend', icon: 'Node' },
+  { id: 'erp', label: 'ERP & Business', icon: 'Odoo' },
+  { id: 'design', label: 'Design', icon: 'Figma' },
+  { id: 'tools', label: 'Tools & DevOps', icon: 'Git' },
 ];
 
 const expertisePillars = [
-  { title: 'Frontend Excellence', desc: '15+ years mastering UI/UX', icon: '🎯' },
-  { title: 'Performance', desc: 'Web optimization expert', icon: '⚡' },
-  { title: 'Architecture', desc: 'Scalable system design', icon: '🏗️' },
+  { title: 'Frontend', desc: 'React, Next.js, TypeScript', icon: 'Code' },
+  { title: 'Performance', desc: 'Optimized, fast web apps', icon: 'Zap' },
+  { title: 'Architecture', desc: 'Clean, scalable systems', icon: 'Layout' },
 ];
 
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState<keyof typeof SKILLS>('frontend');
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -46,6 +53,8 @@ export default function Skills() {
 
   const skills = SKILLS[activeCategory];
 
+  if (!loaded) return <SkillsSkeleton />;
+
   return (
     <section
       id="skills"
@@ -66,11 +75,11 @@ export default function Skills() {
           <motion.div variants={itemVariants} className="mb-16">
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30">
               <Award size={16} className="text-emerald-400" />
-              <span className="text-sm font-semibold text-emerald-400">Senior Developer Expertise</span>
+              <span className="text-sm font-semibold text-emerald-400">Junior Developer Expertise</span>
             </div>
-            <h2 className="section-title">Technical Mastery</h2>
+            <h2 className="section-title">Frontend Excellence</h2>
             <p className="section-subtitle max-w-2xl">
-              15+ years of professional experience crafting performant, scalable web applications with cutting-edge technologies
+              +3 years of Frontend Excellence
             </p>
           </motion.div>
 
@@ -86,8 +95,8 @@ export default function Skills() {
                 whileHover={{ y: -5 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative z-10">
-                  <div className="text-4xl mb-3">{pillar.icon}</div>
+                  <div className="relative z-10">
+                  <div className="text-2xl font-bold text-emerald-400 mb-3">{pillar.icon}</div>
                   <h3 className="text-lg font-bold text-white mb-1">{pillar.title}</h3>
                   <p className="text-sm text-gray-400">{pillar.desc}</p>
                 </div>
@@ -112,7 +121,7 @@ export default function Skills() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="text-lg">{category.icon}</span>
+                <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">{category.icon}</span>
                 {category.label}
                 {activeCategory === category.id && (
                   <motion.div
@@ -149,7 +158,7 @@ export default function Skills() {
                   variants={skillItemVariants}
                   className="group"
                 >
-                  <div className="card-dark relative overflow-hidden h-full border border-white/5 hover:border-emerald-500/30 transition-all duration-300">
+                  <div                 className="card-dark relative overflow-hidden h-full border border-white/5 hover:border-emerald-500/30 transition-all duration-300 hover:scale-[1.02]">
                     {/* Gradient Background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -157,7 +166,7 @@ export default function Skills() {
                       {/* Header with enhanced styling */}
                       <div className="flex items-start justify-between mb-6">
                         <div className="flex items-center gap-3">
-                          <div className="text-4xl p-2 rounded-lg bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 group-hover:from-emerald-500/20 group-hover:to-cyan-500/20 transition-all">
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 flex items-center justify-center text-xs font-bold text-emerald-400 group-hover:from-emerald-500/20 group-hover:to-cyan-500/20 transition-all">
                             {skill.icon}
                           </div>
                           <div>
@@ -240,7 +249,7 @@ export default function Skills() {
                 variants={itemVariants}
                 className="card-dark text-center group hover:border-emerald-500/30"
               >
-                <div className="text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">15+</div>
+                <div className="text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">3+</div>
                 <p className="text-gray-400 text-sm font-medium">Years Experience</p>
               </motion.div>
               <motion.div

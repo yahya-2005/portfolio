@@ -1,10 +1,20 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { SERVICES } from '@/data/portfolio';
 import { CheckCircle2 } from 'lucide-react';
+import { scrollToSection } from '@/lib/utils';
+import { ServicesSkeleton } from '@/components/ui/SectionSkeleton';
 
 export default function Services() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 900);
+    return () => clearTimeout(timer);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -20,6 +30,8 @@ export default function Services() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  if (!loaded) return <ServicesSkeleton />;
 
   return (
     <section
@@ -120,9 +132,10 @@ export default function Services() {
 
                     {/* CTA */}
                     <motion.button
+                      onClick={() => scrollToSection('contact')}
                       className="mt-6 px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 text-emerald-400 hover:border-emerald-500/70 transition-all duration-300 font-semibold text-sm w-full"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       Learn More
                     </motion.button>
@@ -138,9 +151,10 @@ export default function Services() {
             className="mt-16 text-center"
           >
             <p className="text-gray-400 mb-6">
-              Need a custom solution? Let's discuss your project
+              Need a custom solution? Let's talk about your project.
             </p>
             <motion.button
+              onClick={() => scrollToSection('contact')}
               className="btn-primary"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

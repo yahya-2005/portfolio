@@ -121,8 +121,8 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`text-gray-400 ${link.color} transition-colors duration-300`}
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <link.icon size={20} />
                 </motion.a>

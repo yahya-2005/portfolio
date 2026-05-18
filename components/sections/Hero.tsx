@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Download, Mail } from 'lucide-react';
+import { ChevronDown, Download, Mail, MapPin, GraduationCap } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import HeroBackground from '@/components/HeroBackground';
 import { PERSONAL_INFO } from '@/data/portfolio';
 import { scrollToSection } from '@/lib/utils';
 import TypingEffect from '@/components/ui/TypingEffect';
+import { HeroSkeleton } from '@/components/ui/SectionSkeleton';
 
 const roles = [
   'Full-Stack Developer',
@@ -18,6 +19,13 @@ const roles = [
 
 export default function Hero() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hasCv] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 400);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +51,8 @@ export default function Hero() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  if (!loaded) return <HeroSkeleton />;
 
   return (
     <section
@@ -82,9 +92,7 @@ export default function Hero() {
             variants={itemVariants}
             className="text-gray-300 text-lg md:text-xl max-w-2xl mb-8 leading-relaxed"
           >
-            A passionate {PERSONAL_INFO.age}-year-old Moroccan full-stack developer and designer
-            with {PERSONAL_INFO.bio.split('+')[1]?.split('years')[0]}+ years of experience
-            creating modern, responsive, and high-performance web applications.
+            Moroccan full-stack developer building modern web applications with React, Next.js, and TypeScript. I turn complex problems into clean, responsive, and performant solutions.
           </motion.p>
 
           {/* Location & Info */}
@@ -94,12 +102,16 @@ export default function Hero() {
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              📍 {PERSONAL_INFO.location}
+              <MapPin size={16} className="text-emerald-400" />
+              {PERSONAL_INFO.location}
             </div>
             <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-600" />
             <div>Age: {PERSONAL_INFO.age}</div>
             <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-600" />
-            <div>🎓 ISTA Sidi Moumen</div>
+            <div className="flex items-center gap-1">
+              <GraduationCap size={16} className="text-emerald-400" />
+              ISTA Sidi Moumen
+            </div>
           </motion.div>
 
           {/* CTA Buttons */}
@@ -110,25 +122,27 @@ export default function Hero() {
             <motion.button
               onClick={() => scrollToSection('projects')}
               className="btn-primary flex items-center justify-center gap-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               View Projects
               <ChevronDown size={18} className="rotate-270" />
             </motion.button>
-            <motion.button
-              className="btn-secondary flex items-center justify-center gap-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Download size={18} />
-              Download CV
-            </motion.button>
+            {hasCv && (
+              <motion.button
+                className="btn-secondary flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Download size={18} />
+                Download CV
+              </motion.button>
+            )}
             <motion.button
               onClick={() => scrollToSection('contact')}
               className="btn-accent flex items-center justify-center gap-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               <Mail size={18} />
               Contact Me
@@ -145,8 +159,8 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-emerald-400 transition-colors duration-300"
-              whileHover={{ scale: 1.2, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.98 }}
             >
               <FaGithub size={28} />
             </motion.a>
@@ -155,16 +169,16 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
-              whileHover={{ scale: 1.2, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.98 }}
             >
               <FaLinkedin size={28} />
             </motion.a>
             <motion.a
               href={PERSONAL_INFO.socials.email}
               className="text-gray-400 hover:text-emerald-400 transition-colors duration-300"
-              whileHover={{ scale: 1.2, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.98 }}
             >
               <Mail size={28} />
             </motion.a>

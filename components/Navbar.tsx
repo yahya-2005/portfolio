@@ -51,7 +51,7 @@ export default function Navbar() {
               key={item.href}
               onClick={() => handleNavClick(item.href)}
               className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 relative group"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.02 }}
             >
               {item.label}
               <motion.div
@@ -65,7 +65,7 @@ export default function Navbar() {
         <motion.button
           onClick={() => handleNavClick('contact')}
           className="hidden md:block btn-primary text-sm"
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.02 }}
         >
           Get in Touch
         </motion.button>

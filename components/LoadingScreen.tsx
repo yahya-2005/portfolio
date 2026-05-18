@@ -77,7 +77,7 @@ export default function LoadingScreen() {
                   </span>
                 </h1>
                 <p className="text-lg text-gray-400 font-light tracking-wide">
-                  Senior Frontend Developer & Architect
+                  Full-Stack Developer & Designer
                 </p>
               </motion.div>
 
@@ -86,7 +86,7 @@ export default function LoadingScreen() {
                 variants={itemVariants}
                 className="text-center text-gray-500 text-sm leading-relaxed max-w-md"
               >
-                Crafting exceptional digital experiences with cutting-edge technologies and architectural excellence
+                Crafting modern web experiences with React, Next.js, and clean design
               </motion.p>
 
               {/* Skills Pills */}

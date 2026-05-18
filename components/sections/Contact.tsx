@@ -1,20 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, MapPin, Send } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { PERSONAL_INFO } from '@/data/portfolio';
+import { ContactSkeleton } from '@/components/ui/SectionSkeleton';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 1100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -32,47 +31,7 @@ export default function Contact() {
     visible: { opacity: 1, y: 0 },
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // In a real application, you would send this to your backend
-      console.log('Form data:', formData);
-
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
-
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 3000);
-    } catch (error) {
-      setSubmitStatus('error');
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 3000);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  if (!loaded) return <ContactSkeleton />;
 
   return (
     <section
@@ -94,7 +53,7 @@ export default function Contact() {
           <motion.div variants={itemVariants} className="mb-16 text-center">
             <h2 className="section-title">Get In Touch</h2>
             <p className="section-subtitle max-w-2xl mx-auto">
-              Have a project in mind? Let's collaborate and create something amazing together
+              Have a project in mind? Let's talk about how I can help.
             </p>
           </motion.div>
 
@@ -106,7 +65,7 @@ export default function Contact() {
                 {/* Email */}
                 <motion.div
                   className="card-dark flex items-start gap-4"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 flex items-center justify-center flex-shrink-0">
                     <Mail className="text-emerald-400" size={24} />
@@ -125,7 +84,7 @@ export default function Contact() {
                 {/* Location */}
                 <motion.div
                   className="card-dark flex items-start gap-4"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 flex items-center justify-center flex-shrink-0">
                     <MapPin className="text-cyan-400" size={24} />
@@ -148,8 +107,8 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-12 h-12 rounded-lg bg-white/5 border border-white/20 flex items-center justify-center text-gray-400 hover:text-white hover:border-emerald-500/50 transition-all duration-300"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       <FaGithub size={20} />
                     </motion.a>
@@ -158,16 +117,16 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-12 h-12 rounded-lg bg-white/5 border border-white/20 flex items-center justify-center text-gray-400 hover:text-blue-400 hover:border-blue-500/50 transition-all duration-300"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       <FaLinkedin size={20} />
                     </motion.a>
                     <motion.a
                       href={PERSONAL_INFO.socials.email}
                       className="w-12 h-12 rounded-lg bg-white/5 border border-white/20 flex items-center justify-center text-gray-400 hover:text-emerald-400 hover:border-emerald-500/50 transition-all duration-300"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       <Mail size={20} />
                     </motion.a>
@@ -192,120 +151,38 @@ export default function Contact() {
               </div>
             </motion.div>
 
-            {/* Contact Form */}
-            <motion.form
-              onSubmit={handleSubmit}
+            {/* Contact Form - Direct Email */}
+            <motion.div
               variants={itemVariants}
               className="lg:col-span-2 card-dark space-y-6"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Name */}
-                <motion.div variants={itemVariants}>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="John Doe"
-                    className="input-field"
-                  />
-                </motion.div>
-
-                {/* Email */}
-                <motion.div variants={itemVariants}>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
-                    Your Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="john@example.com"
-                    className="input-field"
-                  />
-                </motion.div>
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 flex items-center justify-center mx-auto mb-6">
+                  <Mail className="text-emerald-400" size={32} />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  Send me an email
+                </h3>
+                <p className="text-gray-400 mb-6 max-w-md mx-auto">
+                  I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                </p>
+                <motion.a
+                  href={`mailto:${PERSONAL_INFO.email}?subject=Project Inquiry`}
+                  className="btn-primary inline-flex items-center gap-2"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Send size={18} />
+                  Send Email
+                </motion.a>
+                <p className="text-gray-500 text-sm mt-4">
+                  Or write directly to{' '}
+                  <a href={`mailto:${PERSONAL_INFO.email}`} className="text-emerald-400 hover:underline">
+                    {PERSONAL_INFO.email}
+                  </a>
+                </p>
               </div>
-
-              {/* Subject */}
-              <motion.div variants={itemVariants}>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  placeholder="Project Inquiry"
-                  className="input-field"
-                />
-              </motion.div>
-
-              {/* Message */}
-              <motion.div variants={itemVariants}>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  placeholder="Tell me about your project..."
-                  className="input-field resize-none"
-                />
-              </motion.div>
-
-              {/* Status Messages */}
-              {submitStatus === 'success' && (
-                <motion.div
-                  className="p-4 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-emerald-300"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  ✓ Message sent successfully! I'll get back to you soon.
-                </motion.div>
-              )}
-
-              {submitStatus === 'error' && (
-                <motion.div
-                  className="p-4 rounded-lg bg-red-500/20 border border-red-500/50 text-red-300"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  ✗ Something went wrong. Please try again.
-                </motion.div>
-              )}
-
-              {/* Submit Button */}
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    Send Message
-                    <Send size={18} />
-                  </>
-                )}
-              </motion.button>
-            </motion.form>
+            </motion.div>
           </div>
         </motion.div>
       </div>
